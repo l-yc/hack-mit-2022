@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:solana/solana.dart';
 
 void main() {
   runApp(const MyApp());
+}
+
+class Solana {
+  static Future<Ed25519HDKeyPair> generateKeyPair() async {
+    return Ed25519HDKeyPair.random();
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -20,6 +27,77 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class ProfileWidget extends StatefulWidget {
+  const ProfileWidget({super.key});
+
+  @override
+  State<ProfileWidget> createState() => _ProfileWidgetState();
+}
+
+class _ProfileWidgetState extends State<ProfileWidget> {
+  String _name = "Chad";
+  int _age = 18;
+  String _gender = "M";
+  String _introduction = "Lorem ipsum dolor sit";
+  List<String> _potential_interests = [
+    "math",
+    "cats",
+    "food",
+  ];
+
+  final Future<Ed25519HDKeyPair> _wallet_address = Solana.generateKeyPair();
+  final Future<Ed25519HDPublicKey> _wallet_address_public =
+      Solana.generateKeyPair().then((value) => value.extractPublicKey());
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Ed25519HDPublicKey>(
+        future:
+            _wallet_address_public, // a previously-obtained Future<String> or null
+        builder:
+            (BuildContext context, AsyncSnapshot<Ed25519HDPublicKey> snapshot) {
+          String addr = "initializing...";
+          if (snapshot.hasData) {
+            addr = snapshot.data?.toBase58() ?? "null";
+          } else if (snapshot.hasError) {
+            addr = "failed to get addr";
+          }
+
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
+                    child: Text(_name,
+                        style: Theme.of(context).textTheme.headline4),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
+                    child: Text('$_age',
+                        style: Theme.of(context).textTheme.headline4),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
+                    child: Text(_gender,
+                        style: Theme.of(context).textTheme.headline4),
+                  ),
+                ]),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
+                  child: Text(
+                    'Address: $addr',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+}
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -32,18 +110,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int _nav_index = 0;
-
-  String _name = "Chad";
-  int _age = 18;
-  String _gender = "M";
-  String _introduction = "Lorem ipsum dolor sit";
-  List<String> _potential_interests = [
-    "math",
-    "cats",
-    "food",
-  ];
-
-  String _wallet_address = "abcdef";
 
   void _incrementCounter() {
     setState(() {
@@ -68,39 +134,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget profileWidget(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
-              child: Text(_name, style: Theme.of(context).textTheme.headline4),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
-              child:
-                  Text('$_age', style: Theme.of(context).textTheme.headline4),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
-              child:
-                  Text(_gender, style: Theme.of(context).textTheme.headline4),
-            ),
-          ]),
-          Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
-              child: Text('Address: $_wallet_address',
-                  style: Theme.of(context).textTheme.headline4),
-            ),
-          ]),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     Widget child = Container();
@@ -110,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child = basicWidget(context);
         break;
       case 3:
-        child = profileWidget(context);
+        child = ProfileWidget();
         break;
     }
 
