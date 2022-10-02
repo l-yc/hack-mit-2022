@@ -37,13 +37,158 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int _nav_index = 0;
 
-  String _name = "Chad Chaddest";
+  String _name = "Chad Among Us";
   int _age = 18;
   String _gender = "M";
   String _introduction = "Lorem ipsum dolor sit";
 
   String _wallet_address = "abcdef";
 
+  // Home
+  Widget homeWidget(BuildContext context) {
+    return SingleChildScrollView(
+        child: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+              padding: EdgeInsets.fromLTRB(15, 10, 20, 10),
+              child: CircleAvatar(
+                backgroundColor: Colors.black,
+                radius: 75,
+                child: CircleAvatar(
+                  child: Image.asset('images/profile.png', scale: 6),
+                  radius: 70,
+                ),
+              )),
+          Padding(
+            padding: EdgeInsets.fromLTRB(5, 10, 20, 10),
+            child: Text(_name, style: Theme.of(context).textTheme.headline4),
+          ),
+          Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(10, 10, 20, 10),
+              child:
+                  Text('$_age', style: Theme.of(context).textTheme.headline5),
+            ),
+            Padding(
+                padding: EdgeInsets.fromLTRB(2, 10, 20, 10),
+                child: Icon(Icons.male_rounded)),
+          ]),
+          Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(10, 10, 20, 10),
+              child: Text('Address: $_wallet_address',
+                  style: Theme.of(context).textTheme.headline5),
+            ),
+          ]),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: 20.0),
+                ExpansionTile(
+                  title: Text(
+                    "Interests",
+                    style:
+                        TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                  ),
+                  children: <Widget>[
+                    ListTile(
+                      title: Text('Brew'),
+                    ),
+                    ListTile(
+                      title: Text('Is'),
+                    ),
+                    ListTile(
+                      title: Text('Finally'),
+                    ),
+                    ListTile(
+                      title: Text('Working'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ));
+  }
+
+  // Chat
+  Widget chatWidget(BuildContext context) {
+    return SingleChildScrollView(
+        child: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+              padding: EdgeInsets.fromLTRB(15, 10, 20, 10),
+              child: CircleAvatar(
+                backgroundColor: Colors.black,
+                radius: 75,
+                child: CircleAvatar(
+                  child: Image.asset('images/profile.png', scale: 6),
+                  radius: 70,
+                ),
+              )),
+          Padding(
+            padding: EdgeInsets.fromLTRB(5, 10, 20, 10),
+            child: Text(_name, style: Theme.of(context).textTheme.headline4),
+          ),
+          Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(10, 10, 20, 10),
+              child:
+                  Text('$_age', style: Theme.of(context).textTheme.headline5),
+            ),
+            Padding(
+                padding: EdgeInsets.fromLTRB(2, 10, 20, 10),
+                child: Icon(Icons.male_rounded)),
+          ]),
+          Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(10, 10, 20, 10),
+              child: Text('Address: $_wallet_address',
+                  style: Theme.of(context).textTheme.headline5),
+            ),
+          ]),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: 20.0),
+                ExpansionTile(
+                  title: Text(
+                    "Interests",
+                    style:
+                        TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                  ),
+                  children: <Widget>[
+                    ListTile(
+                      title: Text('Brew'),
+                    ),
+                    ListTile(
+                      title: Text('Is'),
+                    ),
+                    ListTile(
+                      title: Text('Finally'),
+                    ),
+                    ListTile(
+                      title: Text('Working'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ));
+  }
+
+  // Account
   Widget profileWidget(BuildContext context) {
     return SingleChildScrollView(
         child: Center(
@@ -121,8 +266,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
     switch (_nav_index) {
       case 0:
+        child = homeWidget(context);
         break;
       case 1:
+        child = chatWidget(context);
         break;
       case 2:
         child = profileWidget(context);
