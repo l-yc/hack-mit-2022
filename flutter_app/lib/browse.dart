@@ -94,7 +94,7 @@ class _BrowseWidgetState extends State<BrowseWidget> {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
             child: CircleAvatar(
-              child: Image.asset('images/profile.png', scale: 6),
+              child: Image.asset('images/profile.png', scale: 10),
               radius: 70,
             ),
           ),

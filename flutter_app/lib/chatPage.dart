@@ -58,9 +58,13 @@ class _ConversationListState extends State<ConversationList> {
               child: Row(
                 children: <Widget>[
                   CircleAvatar(
-                    backgroundColor: Colors.green,
-                    child: Image.asset(widget.imageUrl),
-                    maxRadius: 30,
+                    backgroundColor: Colors.black,
+                    maxRadius: 33,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.green,
+                      child: Image.asset(widget.imageUrl, scale: 5),
+                      maxRadius: 30,
+                    ),
                   ),
                   SizedBox(
                     width: 16,
@@ -146,6 +150,11 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
         secondaryText: "How is it going?",
         imageURL: "images/p3.png",
         time: "8h"),
+    ChatUsers(
+        text: "Anna",
+        secondaryText: "Nice music recommendation!",
+        imageURL: "images/p6.png",
+        time: "12h"),
     ChatUsers(
         text: "Yongao",
         secondaryText: "Hello :)",

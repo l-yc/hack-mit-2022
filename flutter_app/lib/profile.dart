@@ -13,10 +13,10 @@ class ProfileWidget extends StatefulWidget {
 }
 
 class _ProfileWidgetState extends State<ProfileWidget> {
-  String _name = "Chad Tan";
-  int _age = 18;
+  String _name = "Michael Tan";
+  int _age = 28;
   String _gender = "M";
-  String _sexual_orientation = "Straight";
+  String _sexual_orientation = "Pansexual Demiromantic";
   String _introduction = "Lorem ipsum dolor sit";
   List<String> _potential_interests = [
     "math",
@@ -43,15 +43,26 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Padding(
-                  padding: EdgeInsets.fromLTRB(20, 60, 20, 30),
-                  child: CircleAvatar(
-                    backgroundColor: Colors.black,
-                    radius: 75,
+                padding: EdgeInsets.fromLTRB(20, 60, 20, 30),
+                child: Container(
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: LinearGradient(
+                            colors: [
+                              Colors.white,
+                              Colors.green,
+                            ],
+                            begin: Alignment.bottomLeft,
+                            end: Alignment.topRight)),
                     child: CircleAvatar(
-                      child: Image.asset('images/profile.png', scale: 6),
-                      radius: 70,
-                    ),
-                  )),
+                      backgroundColor: Colors.black,
+                      radius: 75,
+                      child: CircleAvatar(
+                        child: Image.asset('images/profile.png', scale: 10),
+                        radius: 70,
+                      ),
+                    )),
+              ),
               Expanded(
                 child: Container(
                     decoration: ShapeDecoration(
@@ -119,16 +130,16 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                         ),
                         children: <Widget>[
                           ListTile(
-                            title: Text('Brew'),
+                            title: Text('Rock Music'),
                           ),
                           ListTile(
-                            title: Text('Is'),
+                            title: Text('Thriller Movies'),
                           ),
                           ListTile(
-                            title: Text('Finally'),
+                            title: Text('Web3 development'),
                           ),
                           ListTile(
-                            title: Text('Working'),
+                            title: Text('Hiking'),
                           ),
                         ],
                       ),
