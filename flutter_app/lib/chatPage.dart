@@ -58,7 +58,8 @@ class _ConversationListState extends State<ConversationList> {
               child: Row(
                 children: <Widget>[
                   CircleAvatar(
-                    backgroundImage: NetworkImage(widget.imageUrl),
+                    backgroundColor: Colors.blue,
+                    child: Image.asset(widget.imageUrl),
                     maxRadius: 30,
                   ),
                   SizedBox(
@@ -111,12 +112,12 @@ class _ConversationListState extends State<ConversationList> {
 class ChatUsers {
   String text;
   String secondaryText;
-  String image;
+  String imageURL;
   String time;
   ChatUsers(
       {required this.text,
       required this.secondaryText,
-      required this.image,
+      required this.imageURL,
       required this.time});
 }
 
@@ -131,45 +132,25 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
   final Future<Ed25519HDKeyPair> _wallet_address = Solana.loadKeyPair();
   List<ChatUsers> chatUsers = [
     ChatUsers(
-        text: "Jane Russel",
-        secondaryText: "Awesome Setup",
-        image: "images/userImage1.jpeg",
+        text: "YC",
+        secondaryText: "Awesome Picture!",
+        imageURL: "images/p1.png",
         time: "Now"),
     ChatUsers(
-        text: "Glady's Murphy",
-        secondaryText: "That's Great",
-        image: "images/userImage2.jpeg",
-        time: "Yesterday"),
+        text: "Shin",
+        secondaryText: "LOL",
+        imageURL: "images/p2.png",
+        time: "3h"),
     ChatUsers(
-        text: "Jorge Henry",
-        secondaryText: "Hey where are you?",
-        image: "images/userImage3.jpeg",
-        time: "31 Mar"),
+        text: "Toya",
+        secondaryText: "How is it going?",
+        imageURL: "images/p3.png",
+        time: "8h"),
     ChatUsers(
-        text: "Philip Fox",
-        secondaryText: "Busy! Call me in 20 mins",
-        image: "images/userImage4.jpeg",
-        time: "28 Mar"),
-    ChatUsers(
-        text: "Debra Hawkins",
-        secondaryText: "Thankyou, It's awesome",
-        image: "images/userImage5.jpeg",
-        time: "23 Mar"),
-    ChatUsers(
-        text: "Jacob Pena",
-        secondaryText: "will update you in evening",
-        image: "images/userImage6.jpeg",
-        time: "17 Mar"),
-    ChatUsers(
-        text: "Andrey Jones",
-        secondaryText: "Can you please share the file?",
-        image: "images/userImage7.jpeg",
-        time: "24 Feb"),
-    ChatUsers(
-        text: "John Wick",
-        secondaryText: "How are you?",
-        image: "images/userImage8.jpeg",
-        time: "18 Feb"),
+        text: "Yongao",
+        secondaryText: "Hello :)",
+        imageURL: "images/p4.png",
+        time: "1d"),
   ];
   @override
   Widget build(BuildContext context) {
@@ -197,7 +178,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            "Conversations",
+                            "Chat",
                             style: TextStyle(
                                 fontSize: 32, fontWeight: FontWeight.bold),
                           ),
@@ -262,7 +243,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                       return ConversationList(
                         name: chatUsers[index].text,
                         messageText: chatUsers[index].secondaryText,
-                        imageUrl: chatUsers[index].image,
+                        imageUrl: chatUsers[index].imageURL,
                         time: chatUsers[index].time,
                         isMessageRead:
                             (index == 0 || index == 3) ? true : false,
