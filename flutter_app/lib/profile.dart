@@ -16,6 +16,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   String _name = "Chad Tan";
   int _age = 18;
   String _gender = "M";
+  String _sexual_orientation = "Straight";
   String _introduction = "Lorem ipsum dolor sit";
   List<String> _potential_interests = [
     "math",
@@ -70,7 +71,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     child: SingleChildScrollView(
                         child: Column(children: [
                       Padding(
-                        padding: EdgeInsets.fromLTRB(5, 20, 20, 10),
+                        padding: EdgeInsets.fromLTRB(15, 20, 20, 10),
                         child: Text(_name,
                             style: Theme.of(context).textTheme.headline4),
                       ),
@@ -86,9 +87,17 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                   )),
                             ),
                             Padding(
-                              padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
+                              padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
                               child: Icon(Icons.male_rounded,
                                   color: Colors.black38, size: 18),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
+                              child: Text('$_sexual_orientation',
+                                  style: TextStyle(
+                                    color: Colors.black38,
+                                    fontSize: 18,
+                                  )),
                             ),
                           ]),
                       ExpansionTile(

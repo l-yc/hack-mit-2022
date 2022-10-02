@@ -90,15 +90,24 @@ class _BrowseWidgetState extends State<BrowseWidget> {
           ]),
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-        child: Text(
-          e.toBase58(),
-          style: TextStyle(
-            fontFamily: 'Nunito',
-            //fontWeight: FontWeight.w800,
-            color: Colors.black,
-            //fontSize: 36,
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+            child: CircleAvatar(
+              child: Image.asset('images/profile.png', scale: 6),
+              radius: 70,
+            ),
           ),
-        ),
+          Text(
+            e.toBase58(),
+            style: TextStyle(
+              fontFamily: 'Nunito',
+              //fontWeight: FontWeight.w800,
+              color: Colors.black,
+              //fontSize: 36,
+            ),
+          )
+        ]),
       ),
     );
   }
