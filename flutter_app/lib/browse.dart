@@ -57,16 +57,36 @@ class _BrowseWidgetState extends State<BrowseWidget> {
           ],
         ),
       ),
-      child: const Padding(
+      child: Padding(
         padding: EdgeInsets.only(top: 48, left: 24.0),
-        child: Text(
-          'Browse',
-          style: TextStyle(
-            fontFamily: 'Nunito',
-            fontWeight: FontWeight.w800,
-            color: Colors.white,
-            fontSize: 36,
-          ),
+        child: Container(
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Browse',
+                    style: TextStyle(
+                      fontFamily: 'Nunito',
+                      fontWeight: FontWeight.w800,
+                      color: Colors.white,
+                      fontSize: 36,
+                    )),
+                MaterialButton(
+                  materialTapTargetSize: MaterialTapTargetSize.padded,
+                  splashColor: Colors.green,
+                  shape: CircleBorder(
+                    side: BorderSide(
+                      width: 2,
+                      color: Colors.green,
+                      style: BorderStyle.solid,
+                    ),
+                  ),
+                  child: Icon(Icons.auto_fix_high),
+                  color: Colors.white,
+                  textColor: Colors.green,
+                  onPressed: () {},
+                ),
+              ]),
         ),
       ),
     );
@@ -124,18 +144,57 @@ class _BrowseWidgetState extends State<BrowseWidget> {
                 color: Colors.green,
                 strokeWidth: 5,
               ))
-          : Stack(
-              //scrollDirection: Axis.vertical,
-              //shrinkWrap: true,
-              //padding: EdgeInsets.all(20),
-              children: _recent_users.mapIndexed((index, keypair) {
-                return makeUserCard(context, keypair);
-              }).toList(),
-              //children: _recent_users.mapIndexed((index, keypair) {
-              //  return Positioned(
-              //      top: index * 20, child: makeUserCard(context, keypair));
-              //}).toList(),
-            ),
+          : Column(children: [
+              Stack(
+                //scrollDirection: Axis.vertical,
+                //shrinkWrap: true,
+                //padding: EdgeInsets.all(20),
+                children: _recent_users.mapIndexed((index, keypair) {
+                  return makeUserCard(context, keypair);
+                }).toList(),
+                //children: _recent_users.mapIndexed((index, keypair) {
+                //  return Positioned(
+                //      top: index * 20, child: makeUserCard(context, keypair));
+                //}).toList(),
+              ),
+              Padding(
+                  padding: EdgeInsets.symmetric(vertical: 32, horizontal: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      MaterialButton(
+                        materialTapTargetSize: MaterialTapTargetSize.padded,
+                        splashColor: Colors.red,
+                        shape: CircleBorder(
+                          side: BorderSide(
+                            width: 2,
+                            color: Colors.red,
+                            style: BorderStyle.solid,
+                          ),
+                        ),
+                        child: Icon(Icons.close),
+                        color: Colors.white,
+                        textColor: Colors.red,
+                        onPressed: () {},
+                      ),
+                      MaterialButton(
+                        materialTapTargetSize: MaterialTapTargetSize.padded,
+                        splashColor: Colors.green,
+                        shape: CircleBorder(
+                          side: BorderSide(
+                            width: 2,
+                            color: Colors.green,
+                            style: BorderStyle.solid,
+                          ),
+                        ),
+                        child: Icon(Icons.check),
+                        color: Colors.white,
+                        textColor: Colors.green,
+                        onPressed: () {},
+                      ),
+                    ],
+                  )),
+            ]),
     );
   }
 
