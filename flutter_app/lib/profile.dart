@@ -1,7 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_app/solana.dart';
+import 'package:expandable/expandable.dart';
 import 'package:solana/solana.dart';
 
 class ProfileWidget extends StatefulWidget {
@@ -23,22 +22,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   ];
 
   final Future<Ed25519HDKeyPair> _wallet_address = Solana.loadKeyPair();
-  List<Ed25519HDPublicKey> _recent_users = [];
-  late Timer timer;
-
-  @override
-  void initState() {
-    super.initState();
-    //callApi();
-    timer = new Timer.periodic(Duration(seconds: 1), (Timer t) async {
-      final keyPair = await _wallet_address;
-      final latest = await Solana.getRecentHeartbeats(keyPair);
-      setState(() {
-        _recent_users = latest;
-        _recent_users.add(Solana.HEARTBEAT_PROGRAM_ID);
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,48 +35,76 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           } else if (snapshot.hasError) {
             addr = "failed to get addr";
           }
-          return Center(
+
+          return SingleChildScrollView(
+              child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.fromLTRB(15, 10, 20, 10),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.black,
+                      radius: 75,
+                      child: CircleAvatar(
+                        child: Image.asset('images/profile.png', scale: 6),
+                        radius: 70,
+                      ),
+                    )),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(5, 10, 20, 10),
+                  child:
+                      Text(_name, style: Theme.of(context).textTheme.headline4),
+                ),
                 Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                   Padding(
-                    padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
-                    child: Text(_name,
-                        style: Theme.of(context).textTheme.headline4),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
-                    child: Image.asset('images/profile.png'),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
+                    padding: EdgeInsets.fromLTRB(10, 10, 20, 10),
                     child: Text('$_age',
-                        style: Theme.of(context).textTheme.headline4),
+                        style: Theme.of(context).textTheme.headline5),
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
-                    child: Text(_gender,
-                        style: Theme.of(context).textTheme.headline4),
+                      padding: EdgeInsets.fromLTRB(2, 10, 20, 10),
+                      child: Icon(Icons.male_rounded)),
+                ]),
+                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10, 10, 20, 10),
+                    child: Text('Address: $addr',
+                        style: Theme.of(context).textTheme.headline5),
                   ),
                 ]),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
-                  child: Text(
-                    'Address: $addr',
-                    style: Theme.of(context).textTheme.bodyMedium,
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: 20.0),
+                      ExpansionTile(
+                        title: Text(
+                          "Interests",
+                          style: TextStyle(
+                              fontSize: 18.0, fontWeight: FontWeight.bold),
+                        ),
+                        children: <Widget>[
+                          ListTile(
+                            title: Text('Brew'),
+                          ),
+                          ListTile(
+                            title: Text('Is'),
+                          ),
+                          ListTile(
+                            title: Text('Finally'),
+                          ),
+                          ListTile(
+                            title: Text('Working'),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                ),
-                ListView(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  padding: EdgeInsets.all(20),
-                  children:
-                      _recent_users.map((e) => Text(e.toBase58())).toList(),
                 ),
               ],
             ),
-          );
+          ));
         });
   }
 }
