@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app/solana.dart';
 import 'package:expandable/expandable.dart';
@@ -11,7 +13,7 @@ class ProfileWidget extends StatefulWidget {
 }
 
 class _ProfileWidgetState extends State<ProfileWidget> {
-  String _name = "Chad2";
+  String _name = "Chad Tan";
   int _age = 18;
   String _gender = "M";
   String _introduction = "Lorem ipsum dolor sit";
@@ -36,48 +38,70 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             addr = "failed to get addr";
           }
 
-          return SingleChildScrollView(
-              child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                    padding: EdgeInsets.fromLTRB(15, 10, 20, 10),
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                  padding: EdgeInsets.fromLTRB(20, 60, 20, 30),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.black,
+                    radius: 75,
                     child: CircleAvatar(
-                      backgroundColor: Colors.black,
-                      radius: 75,
-                      child: CircleAvatar(
-                        child: Image.asset('images/profile.png', scale: 6),
-                        radius: 70,
+                      child: Image.asset('images/profile.png', scale: 6),
+                      radius: 70,
+                    ),
+                  )),
+              Expanded(
+                child: Container(
+                    decoration: ShapeDecoration(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(32),
+                          topRight: Radius.circular(32),
+                        )),
+                        color: Colors.white,
+                        shadows: [
+                          BoxShadow(
+                              blurRadius: 8,
+                              color: Colors.black12,
+                              offset: Offset.fromDirection(pi / 2, -6),
+                              spreadRadius: -2)
+                        ]),
+                    child: SingleChildScrollView(
+                        child: Column(children: [
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(5, 20, 20, 10),
+                        child: Text(_name,
+                            style: Theme.of(context).textTheme.headline4),
                       ),
-                    )),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(5, 10, 20, 10),
-                  child:
-                      Text(_name, style: Theme.of(context).textTheme.headline4),
-                ),
-                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(10, 10, 20, 10),
-                    child: Text('$_age',
-                        style: Theme.of(context).textTheme.headline5),
-                  ),
-                  Padding(
-                      padding: EdgeInsets.fromLTRB(2, 10, 20, 10),
-                      child: Icon(Icons.male_rounded)),
-                ]),
-                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(10, 10, 20, 10),
-                    child: Text('Address: $addr',
-                        style: Theme.of(context).textTheme.headline5),
-                  ),
-                ]),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(height: 20.0),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Text('$_age',
+                                  style: TextStyle(
+                                    color: Colors.black38,
+                                    fontSize: 18,
+                                  )),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
+                              child: Icon(Icons.male_rounded,
+                                  color: Colors.black38, size: 18),
+                            ),
+                          ]),
+                      ExpansionTile(
+                          title: Text(
+                            "Key",
+                            style: TextStyle(
+                                fontSize: 18.0, fontWeight: FontWeight.bold),
+                          ),
+                          children: <Widget>[
+                            ListTile(
+                                title:
+                                    Text('$addr', overflow: TextOverflow.clip)),
+                          ]),
                       ExpansionTile(
                         title: Text(
                           "Interests",
@@ -99,12 +123,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ));
+                    ]))),
+              ),
+            ],
+          );
         });
   }
 }
