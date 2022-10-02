@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/browse.dart';
 import 'package:flutter_app/chat.dart';
 import 'package:flutter_app/profile.dart';
+import 'package:flutter_app/chatPage.dart';
 
 import 'dart:convert';
 import 'dart:io';
@@ -249,7 +250,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child = BrowseWidget();
         break;
       case 1:
-        child = ChatWidget();
+        child = ChatPageWidget();
         break;
       case 2:
         //child = profileWidget(context);

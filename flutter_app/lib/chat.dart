@@ -11,16 +11,6 @@ class ChatWidget extends StatefulWidget {
 }
 
 class _ChatWidgetState extends State<ChatWidget> {
-  String _name = "Chad2";
-  int _age = 18;
-  String _gender = "M";
-  String _introduction = "Lorem ipsum dolor sit";
-  List<String> _potential_interests = [
-    "math",
-    "cats",
-    "food",
-  ];
-
   final Future<Ed25519HDKeyPair> _wallet_address = Solana.loadKeyPair();
 
   @override
@@ -36,75 +26,126 @@ class _ChatWidgetState extends State<ChatWidget> {
             addr = "failed to get addr";
           }
 
-          return SingleChildScrollView(
-              child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                    padding: EdgeInsets.fromLTRB(15, 10, 20, 10),
-                    child: CircleAvatar(
-                      backgroundColor: Colors.black,
-                      radius: 75,
-                      child: CircleAvatar(
-                        child: Image.asset('images/profile.png', scale: 6),
-                        radius: 70,
-                      ),
-                    )),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(5, 10, 20, 10),
-                  child:
-                      Text(_name, style: Theme.of(context).textTheme.headline4),
-                ),
-                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(10, 10, 20, 10),
-                    child: Text('$_age',
-                        style: Theme.of(context).textTheme.headline5),
-                  ),
-                  Padding(
-                      padding: EdgeInsets.fromLTRB(2, 10, 20, 10),
-                      child: Icon(Icons.male_rounded)),
-                ]),
-                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(10, 10, 20, 10),
-                    child: Text('Address: $addr',
-                        style: Theme.of(context).textTheme.headline5),
-                  ),
-                ]),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(height: 20.0),
-                      ExpansionTile(
-                        title: Text(
-                          "Interests",
-                          style: TextStyle(
-                              fontSize: 18.0, fontWeight: FontWeight.bold),
+          return Stack(
+            children: <Widget>[
+              Scaffold(
+                  appBar: AppBar(
+                    elevation: 0,
+                    automaticallyImplyLeading: false,
+                    backgroundColor: Colors.white,
+                    flexibleSpace: SafeArea(
+                      child: Container(
+                        padding: EdgeInsets.only(right: 16),
+                        child: Row(
+                          children: <Widget>[
+                            IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Icon(
+                                Icons.arrow_back,
+                                color: Colors.black,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 2,
+                            ),
+                            CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                  "<https://randomuser.me/api/portraits/men/5.jpg>"),
+                              maxRadius: 20,
+                            ),
+                            SizedBox(
+                              width: 12,
+                            ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    "Kriss Benwat",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  SizedBox(
+                                    height: 6,
+                                  ),
+                                  Text(
+                                    "Online",
+                                    style: TextStyle(
+                                        color: Colors.grey.shade600,
+                                        fontSize: 13),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Icon(
+                              Icons.settings,
+                              color: Colors.black54,
+                            ),
+                          ],
                         ),
-                        children: <Widget>[
-                          ListTile(
-                            title: Text('Brew'),
+                      ),
+                    ),
+                  ),
+                  body: Container()),
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: Container(
+                  padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
+                  height: 60,
+                  width: double.infinity,
+                  color: Colors.white,
+                  child: Row(
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          height: 30,
+                          width: 30,
+                          decoration: BoxDecoration(
+                            color: Colors.lightBlue,
+                            borderRadius: BorderRadius.circular(30),
                           ),
-                          ListTile(
-                            title: Text('Is'),
+                          child: Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size: 20,
                           ),
-                          ListTile(
-                            title: Text('Finally'),
-                          ),
-                          ListTile(
-                            title: Text('Working'),
-                          ),
-                        ],
+                        ),
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Expanded(
+                        child: TextField(
+                          decoration: InputDecoration(
+                              hintText: "Write message...",
+                              hintStyle: TextStyle(color: Colors.black54),
+                              border: InputBorder.none),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      FloatingActionButton(
+                        onPressed: () {},
+                        child: Icon(
+                          Icons.send,
+                          color: Colors.white,
+                          size: 18,
+                        ),
+                        backgroundColor: Colors.blue,
+                        elevation: 0,
                       ),
                     ],
                   ),
                 ),
-              ],
-            ),
-          ));
+              ),
+            ],
+          );
         });
   }
 }
