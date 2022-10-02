@@ -22,10 +22,12 @@ class _BrowseWidgetState extends State<BrowseWidget> {
     timer = new Timer.periodic(Duration(seconds: 1), (Timer t) async {
       final keyPair = await Solana.loadKeyPair();
       final latest = await Solana.getRecentHeartbeats(keyPair);
-      setState(() {
-        _recent_users = latest;
-        _recent_users.add(Solana.HEARTBEAT_PROGRAM_ID);
-      });
+      if (t.isActive) {
+        setState(() {
+          _recent_users = latest;
+          _recent_users.add(Solana.HEARTBEAT_PROGRAM_ID);
+        });
+      }
     });
   }
 
