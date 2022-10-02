@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:expandable/expandable.dart';
+import 'package:flutter_app/profile.dart';
 
 void main() {
   runApp(const MyApp());

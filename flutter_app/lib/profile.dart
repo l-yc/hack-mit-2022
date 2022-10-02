@@ -1,8 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app/solana.dart';
 import 'package:solana/solana.dart';
-
-import 'solana.dart';
 
 class ProfileWidget extends StatefulWidget {
   const ProfileWidget({super.key});
@@ -23,6 +23,22 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   ];
 
   final Future<Ed25519HDKeyPair> _wallet_address = Solana.loadKeyPair();
+  List<Ed25519HDPublicKey> _recent_users = [];
+  late Timer timer;
+
+  @override
+  void initState() {
+    super.initState();
+    //callApi();
+    timer = new Timer.periodic(Duration(seconds: 1), (Timer t) async {
+      final keyPair = await _wallet_address;
+      final latest = await Solana.getRecentHeartbeats(keyPair);
+      setState(() {
+        _recent_users = latest;
+        _recent_users.add(Solana.HEARTBEAT_PROGRAM_ID);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +83,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     'Address: $addr',
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
+                ),
+                ListView(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  padding: EdgeInsets.all(20),
+                  children:
+                      _recent_users.map((e) => Text(e.toBase58())).toList(),
                 ),
               ],
             ),
