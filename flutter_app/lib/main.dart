@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:expandable/expandable.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,16 +40,12 @@ class _MyHomePageState extends State<MyHomePage> {
   int _age = 18;
   String _gender = "M";
   String _introduction = "Lorem ipsum dolor sit";
-  List<String> _potential_interests = [
-    "math",
-    "cats",
-    "food",
-  ];
 
   String _wallet_address = "abcdef";
 
   Widget profileWidget(BuildContext context) {
-    return Center(
+    return SingleChildScrollView(
+        child: Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -66,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Row(mainAxisAlignment: MainAxisAlignment.start, children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(5, 10, 20, 10),
+              padding: EdgeInsets.fromLTRB(10, 10, 20, 10),
               child:
                   Text('$_age', style: Theme.of(context).textTheme.headline5),
             ),
@@ -76,14 +75,43 @@ class _MyHomePageState extends State<MyHomePage> {
           ]),
           Row(mainAxisAlignment: MainAxisAlignment.start, children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(5, 10, 20, 10),
+              padding: EdgeInsets.fromLTRB(10, 10, 20, 10),
               child: Text('Address: $_wallet_address',
                   style: Theme.of(context).textTheme.headline5),
             ),
           ]),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: 20.0),
+                ExpansionTile(
+                  title: Text(
+                    "Interests",
+                    style:
+                        TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                  ),
+                  children: <Widget>[
+                    ListTile(
+                      title: Text('Brew'),
+                    ),
+                    ListTile(
+                      title: Text('Is'),
+                    ),
+                    ListTile(
+                      title: Text('Finally'),
+                    ),
+                    ListTile(
+                      title: Text('Working'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ],
       ),
-    );
+    ));
   }
 
   @override
