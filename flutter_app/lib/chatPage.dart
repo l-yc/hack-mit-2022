@@ -149,8 +149,13 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
     ChatUsers(
         text: "Yongao",
         secondaryText: "Hello :)",
-        imageURL: "images/p4.png",
+        imageURL: "images/p5.png",
         time: "1d"),
+    ChatUsers(
+        text: "Joel",
+        secondaryText: "I forgot my confirmation oop",
+        imageURL: "images/p4.png",
+        time: "3d"),
   ];
   @override
   Widget build(BuildContext context) {
