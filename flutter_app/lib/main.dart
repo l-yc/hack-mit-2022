@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'profile.dart';
-
 void main() {
   runApp(const MyApp());
 }
@@ -13,11 +11,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'D(E)ATE',
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'D(E)ATE'),
     );
   }
 }
@@ -35,24 +33,54 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int _nav_index = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  String _name = "Chad Chaddest";
+  int _age = 18;
+  String _gender = "M";
+  String _introduction = "Lorem ipsum dolor sit";
+  List<String> _potential_interests = [
+    "math",
+    "cats",
+    "food",
+  ];
 
-  Widget basicWidget(BuildContext context) {
+  String _wallet_address = "abcdef";
+
+  Widget profileWidget(BuildContext context) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          const Text(
-            'You have pushed the button this many times:',
+          Padding(
+              padding: EdgeInsets.fromLTRB(15, 10, 20, 10),
+              child: CircleAvatar(
+                backgroundColor: Colors.black,
+                radius: 75,
+                child: CircleAvatar(
+                  child: Image.asset('images/profile.png', scale: 6),
+                  radius: 70,
+                ),
+              )),
+          Padding(
+            padding: EdgeInsets.fromLTRB(5, 10, 20, 10),
+            child: Text(_name, style: Theme.of(context).textTheme.headline4),
           ),
-          Text(
-            '$_counter',
-            style: Theme.of(context).textTheme.headline4,
-          ),
+          Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(5, 10, 20, 10),
+              child:
+                  Text('$_age', style: Theme.of(context).textTheme.headline5),
+            ),
+            Padding(
+                padding: EdgeInsets.fromLTRB(2, 10, 20, 10),
+                child: Icon(Icons.male_rounded)),
+          ]),
+          Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(5, 10, 20, 10),
+              child: Text('Address: $_wallet_address',
+                  style: Theme.of(context).textTheme.headline5),
+            ),
+          ]),
         ],
       ),
     );
@@ -64,10 +92,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
     switch (_nav_index) {
       case 0:
-        child = basicWidget(context);
         break;
-      case 3:
-        child = ProfileWidget();
+      case 1:
+        break;
+      case 2:
+        child = profileWidget(context);
         break;
     }
 
@@ -86,27 +115,18 @@ class _MyHomePageState extends State<MyHomePage> {
         iconSize: 30,
         items: [
           BottomNavigationBarItem(
-            label: "Home",
-            icon: Icon(Icons.home),
-          ),
-          BottomNavigationBarItem(
-            label: "Search",
+            label: "Browse",
             icon: Icon(Icons.search),
           ),
           BottomNavigationBarItem(
-            label: "Categories",
-            icon: Icon(Icons.grid_view),
+            label: "Chat",
+            icon: Icon(Icons.chat_bubble_rounded),
           ),
           BottomNavigationBarItem(
             label: "My Account",
             icon: Icon(Icons.account_circle_outlined),
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

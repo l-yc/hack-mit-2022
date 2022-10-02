@@ -12,7 +12,7 @@ class ProfileWidget extends StatefulWidget {
 }
 
 class _ProfileWidgetState extends State<ProfileWidget> {
-  String _name = "Chad";
+  String _name = "Chad2";
   int _age = 18;
   String _gender = "M";
   String _introduction = "Lorem ipsum dolor sit";
@@ -36,7 +36,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           } else if (snapshot.hasError) {
             addr = "failed to get addr";
           }
-
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -46,6 +45,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
                     child: Text(_name,
                         style: Theme.of(context).textTheme.headline4),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
+                    child: Image.asset('images/profile.png'),
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
