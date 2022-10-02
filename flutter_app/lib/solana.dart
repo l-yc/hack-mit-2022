@@ -31,6 +31,14 @@ class Solana {
     }
   }
 
+  static RpcClient getClient() {
+    return new RpcClient("https://api.devnet.solana.com");
+  }
+
+  static Future<TransactionId> initDebugWallet(Ed25519HDKeyPair keyPair) async {
+    return getClient().requestAirdrop(keyPair.publicKey.toBase58(), 1000000000);
+  }
+
   static Future<TransactionId> sendHeartbeat(Ed25519HDKeyPair keyPair) async {
     final ix = new Instruction(
         programId: HEARTBEAT_PROGRAM_ID,
@@ -42,8 +50,7 @@ class Solana {
 
     final msg = new Message(instructions: [ix]);
 
-    final client = new RpcClient("https://api.devnet.solana.com");
-    return client.signAndSendTransaction(msg, List.from([keyPair]));
+    return getClient().signAndSendTransaction(msg, List.from([keyPair]));
 
     //final instruction = new TransactionInstruction({
     //  keys: [
@@ -61,8 +68,7 @@ class Solana {
 
   static Future<List<Ed25519HDPublicKey>> getRecentHeartbeats(
       Ed25519HDKeyPair keyPair) async {
-    final client = new RpcClient("https://api.devnet.solana.com");
-
+    final client = getClient();
     final signatures = await client
         .getSignaturesForAddress(HEARTBEAT_PROGRAM_ID.toBase58(), limit: 10);
 

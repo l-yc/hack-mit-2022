@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -111,9 +112,36 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                   )),
                             ),
                           ]),
+                      ElevatedButton(
+                        onPressed: () async {
+                          final keyPair = await _wallet_address;
+                          try {
+                            final txId = await Solana.sendHeartbeat(keyPair);
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content:
+                                    Text("Heartbeat sent! (debug=$txId)")));
+                          } catch (e) {
+                            final err = e as JsonRpcException;
+                            final jsonErr = err.data["err"];
+                            switch (jsonErr) {
+                              case "AccountNotFound":
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                    content: Text(
+                                        "You need SOL to make this transaction!")));
+                                break;
+                              default:
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content:
+                                            Text("Unknown error: $jsonErr")));
+                            }
+                          }
+                        },
+                        child: Text("Broadcast availability"),
+                      ),
                       ExpansionTile(
                           title: Text(
-                            "Key",
+                            "ID",
                             style: TextStyle(
                                 fontSize: 18.0, fontWeight: FontWeight.bold),
                           ),
@@ -142,6 +170,16 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                             title: Text('Hiking'),
                           ),
                         ],
+                      ),
+                      OutlinedButton(
+                        onPressed: () async {
+                          final keyPair = await _wallet_address;
+                          final txId = await Solana.initDebugWallet(keyPair);
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("tx=$txId")));
+                        },
+                        child: Text("DEBUG"),
                       ),
                     ]))),
               ),
