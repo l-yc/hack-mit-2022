@@ -68,8 +68,8 @@ class _ChatWidgetState extends State<ChatWidget> {
                               width: 2,
                             ),
                             CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                  "<https://randomuser.me/api/portraits/men/5.jpg>"),
+                              backgroundColor: Colors.green,
+                              child: Image.asset("images/p2.png"),
                               maxRadius: 20,
                             ),
                             SizedBox(
@@ -81,7 +81,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Text(
-                                    "Kriss Benwat",
+                                    "Shin",
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600),
@@ -123,7 +123,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                           height: 30,
                           width: 30,
                           decoration: BoxDecoration(
-                            color: Colors.lightBlue,
+                            color: Colors.green,
                             borderRadius: BorderRadius.circular(30),
                           ),
                           child: Icon(
@@ -154,7 +154,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                           color: Colors.white,
                           size: 18,
                         ),
-                        backgroundColor: Colors.blue,
+                        backgroundColor: Colors.green,
                         elevation: 0,
                       ),
                     ],

@@ -58,7 +58,7 @@ class _ConversationListState extends State<ConversationList> {
               child: Row(
                 children: <Widget>[
                   CircleAvatar(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Colors.green,
                     child: Image.asset(widget.imageUrl),
                     maxRadius: 30,
                   ),
@@ -193,13 +193,13 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                             height: 30,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30),
-                              color: Colors.pink[50],
+                              color: Colors.green[50],
                             ),
                             child: Row(
                               children: <Widget>[
                                 Icon(
                                   Icons.add,
-                                  color: Colors.pink,
+                                  color: Colors.green,
                                   size: 20,
                                 ),
                                 SizedBox(
