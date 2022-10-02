@@ -17,7 +17,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   String _name = "Michael Tan";
   int _age = 28;
   String _gender = "M";
-  String _sexual_orientation = "Pansexual Demiromantic";
+  String _sexual_orientation = "Bisexual";
   String _introduction = "Lorem ipsum dolor sit";
   List<String> _potential_interests = [
     "math",
