@@ -44,9 +44,9 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.green,
       ),
       home: Scaffold(
-        appBar: AppBar(
-          title: Text(TITLE),
-        ),
+        //appBar: AppBar(
+        //  title: Text(TITLE),
+        //),
         body: child,
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _nav_index,

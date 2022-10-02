@@ -78,6 +78,8 @@ class Solana {
         ret.add(Ed25519HDPublicKey.fromBase58(acc.pubkey));
       }
     }
-    return ret;
+
+    // deduplicate
+    return ret.toSet().toList();
   }
 }
